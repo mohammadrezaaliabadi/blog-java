@@ -1,5 +1,6 @@
 package com.example.blog.module.users.model;
 
+import com.example.blog.module.posts.model.Posts;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users_tbl")
@@ -20,6 +22,18 @@ public class Users {
     private String password;
     private String name;
     private String cover;
+
+    @OneToMany(mappedBy = "users")
+    private List<Posts> posts;
+
+    public List<Posts> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Posts> posts) {
+        this.posts = posts;
+    }
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
