@@ -4,6 +4,8 @@ import com.example.blog.module.posts.model.Posts;
 import com.example.blog.module.posts.repository.PostsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.transaction.Transactional;
 import java.io.File;
@@ -32,6 +34,7 @@ public class PostsService {
         posts.setCover(name);
         return this.postsRepository.save(posts);
     }
+
 
     public List<Posts> findAllPosts() {
         return this.postsRepository.findAll();
