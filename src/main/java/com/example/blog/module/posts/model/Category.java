@@ -2,6 +2,9 @@ package com.example.blog.module.posts.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,10 +31,12 @@ public class Category {
         this.posts = posts;
     }
 
-    @Column(name = "created_at")
+    @Column(name = "created_at",updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     public Category() {

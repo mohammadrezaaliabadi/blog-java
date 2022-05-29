@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MainController {
     private PostsService postsService;
+
+    public MainController(PostsService postsService) {
+        this.postsService = postsService;
+    }
+
     @RequestMapping(value = {"","index"})
     public String index(Model model){
-        model.addAttribute("home","This is Home!!!");
+        model.addAttribute("posts",postsService.findAllPosts());
         return "index";
     }
 }
