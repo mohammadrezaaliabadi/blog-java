@@ -1,5 +1,6 @@
 package com.example.blog.module.users.model;
 
+import com.example.blog.enums.Roles;
 import com.example.blog.module.posts.model.Posts;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -7,13 +8,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "users_tbl")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Users {
+public class Users implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -22,6 +24,21 @@ public class Users {
     private String password;
     private String name;
     private String cover;
+
+    @ElementCollection(targetClass = Roles.class)
+    @CollectionTable(name = "authorities", joinColumns =
+    @JoinColumn(name = "email", referencedColumnName = "email"))
+    @Enumerated(EnumType.STRING)
+    private List<Roles> roles;
+
+    private boolean enabled = true;
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
 
     @OneToMany(mappedBy = "users")
     private List<Posts> posts;
