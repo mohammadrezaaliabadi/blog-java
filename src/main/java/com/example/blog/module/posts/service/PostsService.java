@@ -65,4 +65,8 @@ public class PostsService {
         return postsRepository.findAll(pageable);
     }
 
+    public Page<Posts> findBySearch(Posts posts, Pageable pageable){
+        return postsRepository.findBySearch(posts,(posts.getCategories()!= null ? (long) posts.getCategories().size() : 0),pageable);
+    }
+
 }
