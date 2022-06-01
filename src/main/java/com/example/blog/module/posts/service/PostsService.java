@@ -3,6 +3,8 @@ package com.example.blog.module.posts.service;
 import com.example.blog.MyBeanCopy;
 import com.example.blog.module.posts.model.Posts;
 import com.example.blog.module.posts.repository.PostsRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,4 +60,9 @@ public class PostsService {
     public List<Posts> findAllPosts() {
         return this.postsRepository.findAll();
     }
+
+    public Page<Posts> findAllPosts(Pageable pageable){
+        return postsRepository.findAll(pageable);
+    }
+
 }

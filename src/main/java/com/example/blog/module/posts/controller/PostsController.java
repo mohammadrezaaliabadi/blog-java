@@ -4,6 +4,8 @@ import com.example.blog.module.posts.model.Posts;
 import com.example.blog.module.posts.service.CategoryService;
 import com.example.blog.module.posts.service.PostsService;
 import com.example.blog.module.users.service.UsersService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,8 +34,8 @@ public class PostsController {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String posts(Model model) {
-        model.addAttribute("posts", postsService.findAllPosts());
+    public String posts(Model model, @PageableDefault(size = 5) Pageable pageable) {
+        model.addAttribute("posts", postsService.findAllPosts(pageable));
         return "posts/posts";
     }
 
