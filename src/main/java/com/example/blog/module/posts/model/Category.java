@@ -1,11 +1,13 @@
 package com.example.blog.module.posts.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,9 +20,11 @@ public class Category {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message = "NOT BLANK")
     private String title;
 
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private List<Posts> posts;
 
     public List<Posts> getPosts() {
